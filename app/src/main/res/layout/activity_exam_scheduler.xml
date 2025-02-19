@@ -1,0 +1,57 @@
+```diff
+--- a/app/src/main/res/layout/activity_exam_scheduler.xml
++++ b/app/src/main/res/layout/activity_exam_scheduler.xml
+@@ -0,0 +1,49 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="16dp">
++
++    <EditText
++        android:id="@+id/examIdEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:hint="Enter Exam ID" />
++
++    <EditText
++        android:id="@+id/subjectNameEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:hint="Enter Subject Name" />
++
++    <EditText
++        android:id="@+id/paperCodeEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:hint="Enter Paper Code" />
++
++    <EditText
++        android:id="@+id/examDateEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:focusable="false"
++        android:hint="Select Exam Date" />
++
++    <EditText
++        android:id="@+id/examTimeEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:focusable="false"
++        android:hint="Select Exam Time" />
++
++    <EditText
++        android:id="@+id/durationEditText"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:hint="Enter Duration (in minutes)" />
++
++    <Button
++        android:id="@+id/setNotificationButton"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Set Notification" />
++
++</LinearLayout>
+```

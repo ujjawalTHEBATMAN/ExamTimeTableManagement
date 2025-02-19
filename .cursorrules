@@ -1,0 +1,160 @@
+File Structure Overview
+less
+Copy
+Edit
+ExamtimetableManagementApp/
+└── app/
+    └── src/
+        └── main/
+            ├── AndroidManifest.xml
+            ├── java/com/example/examtimetable/
+            │   ├── MainActivity.java                  // App entry point and common navigation
+            │   ├── teacher/                           // Teacher-specific modules
+            │   │   ├── ExamSchedulerActivity.java     // Create & manage exam schedules manually
+            │   │   ├── AutoSchedulerActivity.java       // Auto-generated scheduler logic
+            │   │   └── SubjectPaperDetailsActivity.java // Input and update subject/paper details
+            │   ├── student/                           // Student-specific modules
+            │   │   ├── ExamListActivity.java            // Display scheduled exams list
+            │   │   ├── ResourceViewActivity.java        // Opens learning resources on long press
+            │   │   └── RevisionPlanActivity.java        // Revision planning and automation view
+            │   ├── notifications/                     // Notification handling modules
+            │   │   ├── NotificationReceiver.java        // Handles scheduled exam notifications
+            │   │   └── LongPressHandler.java            // Detects long press events on schedule items
+            │   └── utils/                             // Utility classes and helpers
+            │       ├── ScheduleGenerator.java           // Logic to generate exam schedules automatically
+            │       └── Constants.java                   // Common constants (e.g., keys, intent extras)
+            └── res/
+                ├── layout/                            // XML layouts for UI screens
+                │   ├── activity_main.xml              // Main dashboard or launcher screen
+                │   ├── activity_exam_scheduler.xml    // UI for manual exam scheduler creation
+                │   ├── activity_auto_scheduler.xml      // UI showing auto-generated exam schedule
+                │   ├── activity_subject_paper_details.xml // Form for subject & paper details
+                │   ├── activity_exam_list.xml           // List view of exams for students
+                │   ├── activity_resource_view.xml       // Resource view for learning materials
+                │   └── activity_revision_plan.xml       // Revision planning interface
+                ├── values/                              // App-wide resources and styles
+                │   ├── strings.xml                      // All text strings used in the app
+                │   ├── colors.xml                       // Color palette definitions
+                │   └── styles.xml                       // Style definitions and themes (including dark/light modes)
+                └── drawable/                            // Image and icon resources
+In-Depth Explanation of Files & Directories
+1. AndroidManifest.xml
+Purpose:
+Declares all activities, services, and broadcast receivers.
+Specifies permissions (e.g., for notifications or calendar sync).
+Key Details:
+Ensure each activity (teacher modules, student modules) is registered here.
+Declare your notification receiver and any intent filters needed.
+2. Java Source Files
+MainActivity.java
+
+Purpose:
+Acts as the app’s central hub.
+Provides navigation to teacher or student functions.
+Details:
+You may use intents to switch between modules.
+Teacher Package:
+
+ExamSchedulerActivity.java
+Purpose:
+Interface for teachers to create and edit exam timetables manually.
+Details:
+Include form inputs for exam details (date, time, subject, duration).
+AutoSchedulerActivity.java
+Purpose:
+Contains logic to auto-generate exam schedules.
+Details:
+Integrate with ScheduleGenerator.java in utils for algorithmic schedule creation.
+SubjectPaperDetailsActivity.java
+Purpose:
+Enables teachers to manage subject and paper-specific information.
+Details:
+Form screens for entering details such as subject name, paper code, marks, etc.
+Student Package:
+
+ExamListActivity.java
+Purpose:
+Displays a list of scheduled exams.
+Details:
+Implements a long press listener on list items to trigger further actions.
+ResourceViewActivity.java
+Purpose:
+Opens when a scheduled exam is long pressed.
+Displays learning resources or material related to the exam.
+Details:
+May load web views, PDFs, or other educational content.
+RevisionPlanActivity.java
+Purpose:
+Provides an interface for automated revision planning.
+Details:
+Could offer calendar integration or dynamic checklists for revision tasks.
+Notifications Package:
+
+NotificationReceiver.java
+Purpose:
+Listens for system or scheduled notifications.
+Details:
+Processes notifications when exam times are near or when triggered by user actions.
+LongPressHandler.java
+Purpose:
+Handles the long press event on exam schedule items.
+Details:
+Initiates the intent to open ResourceViewActivity and RevisionPlanActivity as a dual option.
+Utils Package:
+
+ScheduleGenerator.java
+Purpose:
+Contains the business logic for generating exam timetables automatically.
+Details:
+This class can read teacher input constraints and produce a schedule that avoids conflicts.
+Constants.java
+Purpose:
+Stores constant values used across the app.
+Details:
+Ideal for keys, intent extras, notification IDs, etc.
+3. Resource Files (res/ Directory)
+Layout XML Files:
+
+activity_main.xml
+Purpose:
+The main interface of the app, allowing navigation to teacher or student modules.
+activity_exam_scheduler.xml & activity_auto_scheduler.xml
+Purpose:
+User interfaces for manual exam scheduling and auto-generated schedules.
+activity_subject_paper_details.xml
+Purpose:
+A form interface for entering subject and paper details.
+activity_exam_list.xml
+Purpose:
+Lists exams in a recycler or list view.
+Includes long press event listeners on each exam item.
+activity_resource_view.xml & activity_revision_plan.xml
+Purpose:
+Provides detailed views for learning resources and revision planning.
+Values Directory (strings, colors, styles):
+
+strings.xml:
+Purpose:
+Contains all the text used in the UI, making it easier to maintain and support multiple languages.
+colors.xml & styles.xml:
+Purpose:
+Define the color scheme and overall look & feel.
+Include definitions for themes (e.g., dark/light modes).
+Drawable Directory:
+
+Purpose:
+Contains icons, logos, and other images required for the app UI.
+Implementation Highlights
+Teacher vs. Student Modules:
+
+Keep separate packages for teacher and student functionalities. This modularity simplifies maintenance and allows for role-based access control.
+Long Press Event Handling:
+
+In ExamListActivity.java, add a long press listener on each list item. On detecting a long press, call a method in LongPressHandler.java to dispatch the correct intent (e.g., open both ResourceViewActivity and RevisionPlanActivity or show a dialog offering the two options).
+Auto Scheduler Integration:
+
+AutoSchedulerActivity.java should rely on the helper methods in ScheduleGenerator.java to construct a valid exam timetable based on provided constraints.
+Notification Management:
+
+Use NotificationReceiver.java to schedule reminders for upcoming exams. This receiver will be registered in your manifest and triggered via AlarmManager or similar scheduling services.
+This structure should give you a robust starting point for your Exam Timetable Management app. Each file and package is purpose-built to separate concerns between teacher and student roles, manage exam scheduling (both manual and automatic), and handle user interactions like long press events that trigger additional educational resources. Feel free to adjust and expand based on additional requirements or design iterations.
